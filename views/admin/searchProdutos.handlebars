@@ -1,0 +1,25 @@
+<h1 style="text-align: center;" class="mt-2">Editar Produtos</h1>
+<hr>
+
+<div class="container">
+<div class="row mt-2">
+{{#each produtos}}
+<div class="col-md-4">
+  <div class="card mb-4 shadow-sm" style="height: 600px; border: 2px solid #333">
+    <img src="{{imagem}}" class="card-img-top" alt="{{nome}}" style="height: 350px; object-fit: cover;">
+    <div class="card-body">
+      <h5 class="card-title text-center">{{nome}}</h5>
+      <p class="card-text"><strong>Preço:</strong> R$ {{preco}}</p>
+      <p class="card-text"><strong>Estoque:</strong> {{estoque}} unidades</p>
+      <div class="d-flex justify-content-between">
+        <a href="/admin/produtos/editar/{{id}}" class="btn btn-primary">Editar</a>
+        <a href="/admin/produtos/delete/{{id}}/{{nome}}" class="btn btn-danger">Remover</a>     
+      </div>
+    </div>
+  </div>
+</div>
+{{else}}
+<h1 class="mt-2" style="text-align: center;">Nenhum produto Foi encontrado</h1>
+{{/each}}
+</div>
+</div>

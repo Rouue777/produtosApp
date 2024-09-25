@@ -1,0 +1,26 @@
+<h1 style="text-align: center;">Adicionar produtos </h1>
+<div class="card">
+    {{#each erros}}
+    
+    <div class="alert alert-danger">{{texto}}</div>
+    {{else}}
+
+    {{/each}}
+    <div class="card-body">
+        <form action="/admin/adicionarprodutos" method="post" class="m-3">
+            <label for="nome">Produto :</label>
+            <input type="text" placeholder="Digite o nome do produto" name="nome" class="form-control mt-2">
+            <label for="slug">Slug :</label>
+            <input type="text" placeholder="adicione slug" name="slug" class="form-control mt-2">
+            <label for="detalhes">Detalhes :</label>
+            <input type="text" placeholder="Descreva o produto" name="detalhes" class="form-control mt-2">
+            <label for="preco">Preço :</label>
+            <input type="number" class="form-control mt-2" name="preco" placeholder="Adicione o valor " step="0.01">
+            <label for="estoque">Estoque: </label>
+            <input type="number" class="form-control mt-2" name="estoque" placeholder="Adicione o numero de produtos disponiveis">
+            <label for="img">Link da imagem: </label>
+            <input type="url" name="img" placeholder="Coloque o link da imagem" class="form-control mt-2">
+            <button type="submit" class="btn btn-success mt-4">Adicionar produto</button>
+        </form>
+    </div>
+</div>
