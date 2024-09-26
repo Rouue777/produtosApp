@@ -10,6 +10,9 @@ import path from 'path';
 import Admin from './routes/admin.js'
 import bodyParser from 'body-parser';
 import usuario from './routes/usuario.js'
+import Usuarios from './models/Usuarios.js';
+import Produtos from './models/Produtos.js';
+import {Op} from 'sequelize'
 
 
 
@@ -75,7 +78,45 @@ app.get('/', (req,res) =>{
 })
 
 //exibir produtos
+app.get('/produtos', (req,res) =>{
+   Produtos.findAll().then((produtos) => {
+    res.render('produtos/principal', {produtos})
+   }).catch((err)=> {
+    console.log('erros ao achar produtos' + err)
+   })
+})
 
+app.get('/produtos/detalhes/:slug', (req,res) => {
+   Produtos.findAll({where:{slug : req.params.slug}}).then((produto) => {
+    res.render('produtos/detalhes', {produto})
+   }).catch((err) => {
+    console.log('erro ao achar produtos ' + err)
+   })
+    
+})
+
+//pesquisar produtos
+app.get('/produtos/search', (req, res) => {
+    const { searchTerm } = req.query;
+    console.log(searchTerm)
+    Produtos.findAll({
+      where: {
+        nome: {
+          [Op.like]: `%${searchTerm}%`
+        }
+      }
+    }).then((produtos) =>{
+      if(produtos.length > 0){
+        res.render('produtos/principal', {produtos})
+      }else{
+        res.render('produtos/principal')
+      }
+    }).catch((err) => {
+      console.log('Nenhum produto encontrado' + err)
+      res.render('produtos/principal')
+    })
+  
+  });
 
 //routas com prefixo
 app.use('/admin', Admin)

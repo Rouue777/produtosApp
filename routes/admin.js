@@ -175,27 +175,7 @@ router.post('/produtos/editar/:id', (req, res) => {
 })
 
 //pesquisar na aba de administração
-router.get('/produtos/search', (req, res) => {
-  const { searchTerm } = req.query;
-  console.log(searchTerm)
-  Produtos.findAll({
-    where: {
-      nome: {
-        [Op.like]: `%${searchTerm}%`
-      }
-    }
-  }).then((produtos) =>{
-    if(produtos.length > 0){
-      res.render('admin/searchProdutos', {produtos})
-    }else{
-      res.render('admin/searchProdutos')
-    }
-  }).catch((err) => {
-    console.log('Nenhum produto encontrado' + err)
-    res.render('admin/searchProdutos')
-  })
 
-});
 
 
 
