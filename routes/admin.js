@@ -4,6 +4,7 @@ import Usuarios from "../models/Usuarios.js";
 import Produtos from "../models/Produtos.js";
 import bodyParser from "body-parser";
 import {Op} from 'sequelize';
+import eAdmin from "../helpers/eAdmin.js";
 
 
 const router = express.Router()
@@ -11,12 +12,12 @@ const router = express.Router()
 
 
 //pagina principal das rotas admin
-router.get('/adicionarprodutos', (req, res) => {
+router.get('/adicionarprodutos', eAdmin.eAdmin, (req, res) => {
   res.render('admin/addProdutos')
 })
 
 //adicionar valores ao banco de dados
-router.post('/adicionarprodutos', (req, res) => {
+router.post('/adicionarprodutos', eAdmin.eAdmin, (req, res) => {
   //validar formularios
   const erros = [];
 
@@ -79,7 +80,7 @@ router.post('/adicionarprodutos', (req, res) => {
 })
 
 //pagina para exibir o produto para admins
-router.get('/editProdutos', (req, res) => {
+router.get('/editProdutos', eAdmin.eAdmin, (req, res) => {
   Produtos.findAll().then((produtos) => {
     res.render('admin/editProdutos', { produtos })
   }).catch((err) => {
@@ -89,7 +90,7 @@ router.get('/editProdutos', (req, res) => {
 })
 
 //deletar produtos
-router.get('/produtos/delete/:id/:nome', (req, res) => {
+router.get('/produtos/delete/:id/:nome', eAdmin.eAdmin, (req, res) => {
   const nome = req.params.nome
   const id = req.params.id
   console.log(id, nome)
@@ -104,13 +105,13 @@ router.get('/produtos/delete/:id/:nome', (req, res) => {
 
 //editar produtos
 //exibição formulario
-router.get('/produtos/editar/:id', (req, res) => {
+router.get('/produtos/editar/:id', eAdmin.eAdmin, (req, res) => {
   Produtos.findOne({ where: { id: req.params.id } }).then((produto) => {
     res.render('admin/formEditProdutos', { produto })
   })
 })
 //funcção de editar
-router.post('/produtos/editar/:id', (req, res) => {
+router.post('/produtos/editar/:id', eAdmin.eAdmin, (req, res) => {
   //validar edicoes
   //a validar ainda
   const erros = [];
@@ -174,7 +175,7 @@ router.post('/produtos/editar/:id', (req, res) => {
   
 })
 
-//pesquisar na aba de administração
+
 
 
 

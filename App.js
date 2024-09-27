@@ -13,7 +13,9 @@ import usuario from './routes/usuario.js'
 import Usuarios from './models/Usuarios.js';
 import Produtos from './models/Produtos.js';
 import {Op} from 'sequelize'
-
+import { Strategy as LocalStrategy } from 'passport-local';
+import passportConfig from './config/auth.js'
+passportConfig(passport)
 
 
 const app = express()
@@ -27,6 +29,10 @@ app.use(session({
     resave: true,
     saveUninitialized: true
 }))
+
+//config de sessão para manter usuario authenticado
+app.use(passport.initialize());
+app.use(passport.session());
 
     //flash
     app.use(flash())
