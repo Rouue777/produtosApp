@@ -4,14 +4,18 @@
     Express + MySQL</p>
   <hr>
   <h4 class="mt-4">Crie Sua conta, e venha conhecer os melhores produtos, pelos menores preços!</h4>
+  {{#if user}}
+  <a class="btn btn-primary btn-lg mt-4 ms-5" href="/produtos" role="button">Ver produtos</a>
+  {{else}}
   <a class="btn btn-primary btn-lg mt-4" href="/usuario/registro" role="button">Criar conta</a>
   <a class="btn btn-secondary btn-lg mt-4 ms-5" href="/usuario/login" role="button">Fazer login</a>
+  {{/if}}
   <hr>
   <h3 class="mt-4">
     Produtos em destaque!
   </h3>
   <hr>
-<a href="/admin/produtos/todosProdutos">
+<a href="/produtos">
 <div class="card" style="margin: 20px auto; transition: all 0.3s ease;"
      onmouseover="this.style.backgroundColor='#e0e0e0'; this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';"
      onmouseout="this.style.backgroundColor='white'; this.style.transform='scale(1)'; this.style.boxShadow='none';">
@@ -28,7 +32,7 @@
 </div>
 </a>
 <hr>
-<a href="/admin/produtos/todosProdutos">
+<a href="/produtos">
 <div class="card" style="margin: 20px auto; transition: all 0.3s ease;"
      onmouseover="this.style.backgroundColor='#e0e0e0'; this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';"
      onmouseout="this.style.backgroundColor='white'; this.style.transform='scale(1)'; this.style.boxShadow='none';">
@@ -45,7 +49,7 @@
 </div>
 </a>
 <hr>
-<a href="/admin/produtos/todosProdutos">
+<a href="/produtos">
 <div class="card" style="margin: 20px auto; transition: all 0.3s ease;"
      onmouseover="this.style.backgroundColor='#e0e0e0'; this.style.transform='scale(1.05)'; this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';"
      onmouseout="this.style.backgroundColor='white'; this.style.transform='scale(1)'; this.style.boxShadow='none';">
