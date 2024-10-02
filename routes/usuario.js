@@ -9,6 +9,7 @@ import passport from "passport";
 import LocalStrategy from 'passport-local'
 import sequelize from "../models/db.js";
 import session from "express-session";
+import ensureAuth from "../helpers/ensureAuth.js";
 
 const router = express.Router()
 

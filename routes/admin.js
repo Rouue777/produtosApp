@@ -175,14 +175,46 @@ router.post('/produtos/editar/:id', eAdmin.eAdmin, (req, res) => {
   
 })
 
+//exibir formulario para dar adm
+router.get('/novoadm', eAdmin.eAdmin,  (req,res) =>{
+  res.render('admin/novoadm')
+})
+//tornando adm
+router.post('/novoadm/tornar', eAdmin.eAdmin,  (req, res) => {
+  // Verifica se o email foi fornecido
+  if (!req.body.email) {
+    req.flash('error_msg', 'Email não fornecido');
+    return res.redirect('/admin/novoadm');
+  }
 
+  Usuarios.findOne({ where: { email: req.body.email } })
+    .then((usuario) => {
+      if (!usuario) {
+        // Verifica se o usuário foi encontrado
+        req.flash('error_msg', 'Esse usuário não existe');
+        return res.redirect('/admin/novoadm');
+      }
 
+      // Verifica se o usuário já é administrador
+      if (usuario.eadmin == 1) {
+        req.flash('error_msg', 'Esse usuário já é um Administrador');
+        return res.redirect('/admin/novoadm');
+      }
 
-
-
-
-
-
-
-
+      // Atualiza o usuário para administrador
+      usuario.update({ eadmin: 1 })
+        .then(() => {
+          req.flash('success_msg', 'Usuário agora é um administrador');
+          return res.redirect('/admin/novoadm');
+        })
+        .catch((err) => {
+          req.flash('error_msg', 'Erro ao atualizar o usuário');
+          return res.redirect('/admin/novoadm');
+        });
+    })
+    .catch((err) => {
+      // Lida com erros de busca no banco de dados
+      console.log('erro' + err)
+    });
+});
 export default router;

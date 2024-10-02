@@ -14,6 +14,7 @@ import Usuarios from './models/Usuarios.js';
 import Produtos from './models/Produtos.js';
 import {Op} from 'sequelize'
 import { Strategy as LocalStrategy } from 'passport-local';
+import ensureAuth from './helpers/ensureAuth.js';
 import passportConfig from './config/auth.js'
 passportConfig(passport)
 
@@ -87,7 +88,7 @@ app.get('/', (req,res) =>{
 })
 
 //exibir produtos
-app.get('/produtos', (req,res) =>{
+app.get('/produtos', ensureAuth.ensureAuth, (req,res) =>{
    Produtos.findAll().then((produtos) => {
     res.render('produtos/principal', {produtos})
    }).catch((err)=> {
@@ -95,7 +96,7 @@ app.get('/produtos', (req,res) =>{
    })
 })
 
-app.get('/produtos/detalhes/:slug', (req,res) => {
+app.get('/produtos/detalhes/:slug', ensureAuth.ensureAuth, (req,res) => {
    Produtos.findAll({where:{slug : req.params.slug}}).then((produto) => {
     res.render('produtos/detalhes', {produto})
    }).catch((err) => {
@@ -105,7 +106,7 @@ app.get('/produtos/detalhes/:slug', (req,res) => {
 })
 
 //pesquisar produtos
-app.get('/produtos/search', (req, res) => {
+app.get('/produtos/search', ensureAuth.ensureAuth, (req, res) => {
     const { searchTerm } = req.query;
     console.log(searchTerm)
     Produtos.findAll({
