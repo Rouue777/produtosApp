@@ -22,7 +22,12 @@ const Usuarios = sequelize.define('Usuarios', {
         type : DataTypes.STRING,
         allowNull: false
     }
-})
+},
+{
+    tableName: 'usuarios', // Defina o nome da tabela como 'usuarios'
+    timestamps: true // Ativa createdAt e updatedAt automaticamente
+}
+)
 
 
 
