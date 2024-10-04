@@ -31,6 +31,9 @@ const Produtos = sequelize.define('Produtos', {
         type : DataTypes.INTEGER,
         allowNull: false
     },
+},
+{
+    tableName: 'produtos', // Nome exato da tabela no banco de dados
 });
 
 
